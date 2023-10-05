@@ -33,7 +33,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Merkelon\\PhpCryptocurrencyAddressValidation\\AddressValidationServiceProvider"
+                "Merkeleon\\PhpCryptocurrencyAddressValidation\\AddressValidationServiceProvider"
             ]
         }
     }
