@@ -2,107 +2,115 @@
 
 declare(strict_types=1);
 
-use Merkeleon\PhpCryptocurrencyAddressValidation\DriverConfig;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Drivers;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Enums\CurrencyEnum;
 
 return [
     CurrencyEnum::BEACON->value => [
-        new DriverConfig(
-            Drivers\Bech32Driver::class,
-            ['bnb' => null],
-            ['tbnb' => null]
-        ),
+        [
+            'driver' => Drivers\Bech32Driver::class,
+            'mainnet' => ['bnb' => null],
+            'testnet' => ['tbnb' => null]
+        ],
     ],
     CurrencyEnum::BITCOIN_CASH->value => [
-        new DriverConfig(
-            Drivers\Base32Driver::class,
-            ['bitcoincash:' => null],
-            ['bchtest:' => null, 'bchreg:' => null,]
-        ),
-        new DriverConfig(
-            Drivers\DefaultBase58Driver::class,
-            ['1' => '00', '3' => '05'],
-            ['2' => 'C4', 'm' => '6F']
-        ),
+        [
+            'driver' => Drivers\Base32Driver::class,
+            'mainnet' => ['bitcoincash:' => null],
+            'testnet' => ['bchtest:' => null, 'bchreg:' => null,]
+        ],
+        [
+            'driver' => Drivers\DefaultBase58Driver::class,
+            'mainnet' => ['1' => '00', '3' => '05'],
+            'testnet' => ['2' => 'C4', 'm' => '6F']
+        ],
+    ],
+    CurrencyEnum::SOLANA->value => [
+        [
+            'driver' => Drivers\SolanaDriver::class,
+        ],
     ],
     CurrencyEnum::BITCOIN->value => [
-        new DriverConfig(
-            Drivers\DefaultBase58Driver::class,
-            ['1' => '00', '3' => '05'],
-            ['2' => 'C4', 'm' => '6F']
-        ),
-        new DriverConfig(
-            Drivers\Bech32Driver::class,
-            ['bc' => null],
-            ['tb' => null, 'bcrt' => null]
-        ),
+        [
+            'driver' => Drivers\DefaultBase58Driver::class,
+            'mainnet' => ['1' => '00', '3' => '05'],
+            'testnet' => ['2' => 'C4', 'm' => '6F']
+        ],
+        [
+            'driver' => Drivers\Bech32Driver::class,
+            'mainnet' => ['bc' => null],
+            'testnet' => ['tb' => null, 'bcrt' => null]
+        ],
     ],
     CurrencyEnum::CARDANO->value => [
-        new DriverConfig(
-            Drivers\CardanoDriver::class,
-            ['addr' => null],
-            ['addr_test' => null],
-        ),
-        new DriverConfig(
-            Drivers\CborDriver::class,
-            ['A' => 33, 'D' => 66],
-            ['2' => 40, '3' => 73],
-        )
+        [
+            'driver' => Drivers\CardanoDriver::class,
+            'mainnet' => ['addr' => null],
+            'testnet' => ['addr_test' => null],
+        ],
+        [
+            'driver' => Drivers\CborDriver::class,
+            'mainnet' => ['A' => 33, 'D' => 66],
+            'testnet' => ['2' => 40, '3' => 73],
+        ],
     ],
     CurrencyEnum::DASHCOIN->value => [
-        new DriverConfig(
-            Drivers\DefaultBase58Driver::class,
-            ['X' => '4C', '7' => '10'],
-            ['y' => '8C', '8' => '13']
-        ),
+        [
+            'driver' => Drivers\DefaultBase58Driver::class,
+            'mainnet' => ['X' => '4C', '7' => '10'],
+            'testnet' => ['y' => '8C', '8' => '13']
+        ],
     ],
     CurrencyEnum::DOGECOIN->value => [
-        new DriverConfig(
-            Drivers\DefaultBase58Driver::class,
-            ['D' => '1E', '9' => '16', 'A' => '16'],
-            ['n' => '71', 'm' => '6F', '2' => 'C4',],
-        ),
+        [
+            'driver' => Drivers\DefaultBase58Driver::class,
+            'mainnet' => ['D' => '1E', '9' => '16', 'A' => '16'],
+            'testnet' => ['n' => '71', 'm' => '6F', '2' => 'C4',],
+        ],
     ],
     CurrencyEnum::EOS->value => [
-        new DriverConfig(Drivers\EosDriver::class),
+        [
+            'driver' => Drivers\EosDriver::class,
+        ],
     ],
     CurrencyEnum::ETHEREUM->value => [
-        new DriverConfig(Drivers\KeccakStrictDriver::class),
+        [
+            'driver' => Drivers\KeccakStrictDriver::class,
+        ],
     ],
     CurrencyEnum::LITECOIN->value => [
-        new DriverConfig(
-            Drivers\DefaultBase58Driver::class,
-            ['L' => '30', 'M' => '32', '3' => '05'],
-            ['m' => '6F', '2' => 'C4', 'Q' => '3A']
-        ),
-        new DriverConfig(
-            Drivers\Bech32Driver::class,
-            ['ltc' => null],
-            ['tltc' => null, 'rltc' => null]
-        )
+        [
+            'driver' => Drivers\DefaultBase58Driver::class,
+            'mainnet' => ['L' => '30', 'M' => '32', '3' => '05'],
+            'testnet' => ['m' => '6F', '2' => 'C4', 'Q' => '3A']
+        ],
+        [
+            'driver' => Drivers\Bech32Driver::class,
+            'mainnet' => ['ltc' => null],
+            'testnet' => ['tltc' => null, 'rltc' => null]
+        ],
     ],
     CurrencyEnum::RIPPLE->value => [
-        new DriverConfig(
-            Drivers\XrpBase58Driver::class,
-            ['r' => '00']
-        ),
-        new DriverConfig(
-            Drivers\XrpXAddressDriver::class,
-            ['X' => null],
-            ['T' => null],
-        ),
+        [
+            'driver' => Drivers\XrpBase58Driver::class,
+            'mainnet' => ['r' => '00'],
+        ],
+        [
+            'driver' => Drivers\XrpXAddressDriver::class,
+            'mainnet' => ['X' => null],
+            'testnet' => ['T' => null],
+        ],
     ],
     CurrencyEnum::TRON->value => [
-        new DriverConfig(
-            Drivers\DefaultBase58Driver::class,
-            ['T' => '41'],
-        ),
+        [
+            'driver' => Drivers\DefaultBase58Driver::class,
+            'mainnet' => ['T' => '41'],
+        ],
     ],
     CurrencyEnum::ZCASH->value => [
-        new DriverConfig(
-            Drivers\DefaultBase58Driver::class,
-            ['t' => '1C'],
-        ),
+        [
+            'driver' => Drivers\DefaultBase58Driver::class,
+            'mainnet' => ['t' => '1C'],
+        ],
     ],
 ];

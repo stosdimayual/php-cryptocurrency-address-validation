@@ -1,5 +1,5 @@
 {
-    "name": "merkeleon/php-cryptocurrency-address-validation",
+    "name": "stosdimayual/php-cryptocurrency-address-validation",
     "description": "Cryptocurrency address validation. Currently supports litecoin and bitcoin.",
     "authors": [
         {
@@ -29,5 +29,12 @@
         "psr-4": {
             "Tests\\": "tests/"
         }
-    }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Merkelon\\PhpCryptocurrencyAddressValidation\\AddressValidationServiceProvider"
+            ]
+        }
+    },
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Merkeleon\PhpCryptocurrencyAddressValidation;
 
 use Generator;
+use Illuminate\Support\Facades\Config;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Contracts\Driver;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Enums\CurrencyEnum;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Exception\AddressValidationException;
@@ -22,7 +23,11 @@ readonly class Validator implements Contracts\Validator
 
     public static function make(CurrencyEnum $currency): Validator
     {
-        return new Validator($currency->value, config("address_validation.{$currency->value}"), app()->isProduction());
+        return new Validator(
+            $currency->value,
+            Config::get("address_validation.{$currency->value}", []),
+            app()->isProduction()
+        );
     }
 
     public function isValid(?string $address): bool
@@ -68,8 +73,8 @@ readonly class Validator implements Contracts\Validator
      */
     protected function getDrivers(): ?Generator
     {
-        /** @var DriverConfig $driverConfig */
-        foreach ($this->options as $driverConfig) {
+        foreach ($this->options as $driverArgs) {
+            $driverConfig = new DriverConfig(...$driverArgs);
             if ($driver = $driverConfig->makeDriver($this->isMainnet)) {
                 yield $driver;
             }
